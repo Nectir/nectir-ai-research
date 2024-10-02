@@ -57,10 +57,8 @@ permuted_stats = result.null_distribution
 
 observed_stat = result.statistic  # Observed mean difference
 
-
+# Create histogram
 plt.figure(figsize=(10, 6))
-
-
 sns.histplot(permuted_stats, bins=30, kde=False, color="lightblue")
 plt.axvline(
     observed_stat,

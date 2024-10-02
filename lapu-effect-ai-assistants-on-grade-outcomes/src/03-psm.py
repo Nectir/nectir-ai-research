@@ -13,20 +13,15 @@ utils.add_source_root_to_system_path(PROJECT_ROOT)
 
 from src import misc, preprocessing, psm  # noqa: E402
 
-
 dotenv_path = os.path.join(PROJECT_ROOT, ".env")
 load_dotenv(dotenv_path)
 
-
 config_path = utils.get_configs_path(PROJECT_ROOT)
-
 
 with open(config_path, "r") as config_file:
     configs = yaml.safe_load(config_file)
 
-
 file_id = configs.get("file_id")
-
 
 df = misc.read_excel_from_drive(file_id)
 
@@ -34,18 +29,14 @@ df = misc.read_excel_from_drive(file_id)
 # 1. Data Preparation
 # =============================================
 
-
 df = preprocessing.clean_data(df)
 
 # Create binary did_use_spark field
 df = preprocessing.create_did_use_spark_field(df)
 
-
 df_psm = misc.select_psm_fields(df)
 
-
 df_psm = preprocessing.drop_missing_gpas(df_psm)
-
 
 df_psm = preprocessing.drop_missing_genders(df_psm)
 
