@@ -128,7 +128,7 @@ celerybeat.pid
 *.sage.py
 
 # Environments
-.env
+lapu-effect-ai-assistants-on-grade-outcomes/.env
 .venv
 env/
 venv/
