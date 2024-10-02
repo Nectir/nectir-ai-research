@@ -7,47 +7,46 @@ from dotenv import load_dotenv
 
 import utils
 
-# Define the project root
 PROJECT_ROOT = "lapu-effect-ai-assistants-on-grade-outcomes"
 
 utils.add_source_root_to_system_path(PROJECT_ROOT)
 
 from src import misc, preprocessing, psm  # noqa: E402
 
-# Load environment variables
+
 dotenv_path = os.path.join(PROJECT_ROOT, ".env")
 load_dotenv(dotenv_path)
 
-# Get configs path
+
 config_path = utils.get_configs_path(PROJECT_ROOT)
 
-# Load configs
+
 with open(config_path, "r") as config_file:
     configs = yaml.safe_load(config_file)
 
-# Get file ID
+
 file_id = configs.get("file_id")
 
-# Read Excel file from Drive
+
 df = misc.read_excel_from_drive(file_id)
 
 # =============================================
 # 1. Data Preparation
 # =============================================
 
-# Clean data
+
 df = preprocessing.clean_data(df)
 
 # Create binary did_use_spark field
 df = preprocessing.create_did_use_spark_field(df)
 
-# Select fields
+
 df_psm = misc.select_psm_fields(df)
 
-# Drop missing GPAs
+
 df_psm = preprocessing.drop_missing_gpas(df_psm)
 
-# Drop rows with missing genders
+
 df_psm = preprocessing.drop_missing_genders(df_psm)
 
 # Encode categorical variables

@@ -53,15 +53,14 @@ print(f"p-value: {result.pvalue:.7f}")
 # =============================================
 
 # Extract the distribution of permuted statistics
-permuted_stats = (
-    result.null_distribution
-)  # Distribution of mean differences from permutations
+permuted_stats = result.null_distribution
+
 observed_stat = result.statistic  # Observed mean difference
 
-# Create the plot
+
 plt.figure(figsize=(10, 6))
 
-# Plot the distribution of permuted statistics
+
 sns.histplot(permuted_stats, bins=30, kde=False, color="lightblue")
 plt.axvline(
     observed_stat,
