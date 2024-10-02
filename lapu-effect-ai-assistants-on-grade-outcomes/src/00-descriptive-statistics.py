@@ -13,7 +13,7 @@ PROJECT_ROOT = "lapu-effect-ai-assistants-on-grade-outcomes"
 
 utils.add_source_root_to_system_path(PROJECT_ROOT)
 
-from src import misc
+from src import misc  # noqa: E402
 
 # Load environment variables
 dotenv_path = os.path.join(PROJECT_ROOT, ".env")
@@ -105,12 +105,12 @@ control_combinations = group_control.shape[0]
 treatment_combinations = group_treatment.shape[0]
 
 # Calculate the number of unique students in control and treatment groups
-control_unique_students = df_gpas_with_usage[
-    df_gpas_with_usage["did_use_spark"] == False
-]["student_id"].nunique()
-treatment_unique_students = df_gpas_with_usage[
-    df_gpas_with_usage["did_use_spark"] == True
-]["student_id"].nunique()
+control_unique_students = df_gpas_with_usage[~df_gpas_with_usage["did_use_spark"]][
+    "student_id"
+].nunique()
+treatment_unique_students = df_gpas_with_usage[df_gpas_with_usage["did_use_spark"]][
+    "student_id"
+].nunique()
 
 # Calculate mean and standard deviation of GPA for control and treatment groups (student-course combinations)
 control_mean_gpa = group_control.mean()
