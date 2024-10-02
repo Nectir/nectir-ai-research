@@ -16,6 +16,7 @@ pyjanitor = "^0.29.2"
 scikit-learn = "^1.5.2"
 google-api-python-client = "^2.147.0"
 openpyxl = "^3.1.5"
+pre-commit = "^3.8.0"
 
 
 [build-system]
