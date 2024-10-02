@@ -108,6 +108,7 @@ treatment_combinations = group_treatment.shape[0]
 control_unique_students = df_gpas_with_usage[~df_gpas_with_usage["did_use_spark"]][
     "student_id"
 ].nunique()
+
 treatment_unique_students = df_gpas_with_usage[df_gpas_with_usage["did_use_spark"]][
     "student_id"
 ].nunique()
