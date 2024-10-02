@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "lapu-effect-ai-assistants-on-grade-outcomes"
+version = "0.1.0"
+description = ""
+authors = ["Ethan Wicker <ethan.wicker@nectir.io>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+pandas = "^2.2.3"
+seaborn = "^0.13.2"
+pyyaml = "^6.0.2"
+python-dotenv = "^1.0.1"
+scipy = "^1.14.1"
+pyjanitor = "^0.29.2"
+scikit-learn = "^1.5.2"
+google-api-python-client = "^2.147.0"
+openpyxl = "^3.1.5"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
