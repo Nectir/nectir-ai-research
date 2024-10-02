@@ -35,12 +35,9 @@ df = preprocessing.clean_data(df)
 # Create binary did_use_spark field
 df = preprocessing.create_did_use_spark_field(df)
 
-
 df_gpas_with_usage = misc.select_gpas_and_binary_usage(df)
 
-
 df_gpas_with_usage = preprocessing.drop_missing_gpas(df_gpas_with_usage)
-
 
 group_treatment, group_control = preprocessing.create_treatment_and_control_groups(
     df_gpas_with_usage
@@ -49,7 +46,6 @@ group_treatment, group_control = preprocessing.create_treatment_and_control_grou
 # =============================================
 # Create Violin Plot of GPA Distributions
 # =============================================
-
 
 df_gpas_with_usage["group"] = df_gpas_with_usage["did_use_spark"].apply(
     lambda x: "Treatment" if x else "Control"
@@ -64,14 +60,11 @@ sns.violinplot(
     x="group", y="course_gpa", data=df_gpas_with_usage, inner="quartile", bw_method=0.2
 )
 
-
 plt.ylim(0, 4)
-
 
 plt.title("GPA Distributions by Spark Usage (Control vs. Treatment)", fontsize=16)
 plt.xlabel("Group", fontsize=12)
 plt.ylabel("GPA", fontsize=12)
-
 
 plot_path = os.path.join(
     "lapu-effect-ai-assistants-on-grade-outcomes/figures/00-gpa-distributions-control-treatment.png"
@@ -140,7 +133,6 @@ summary_df = pd.DataFrame(
         "Standard Deviation GPA": [control_std_gpa, treatment_std_gpa, overall_std_gpa],
     }
 )
-
 
 print("Descriptive Statistics (Student-Course Combinations and Unique Students)")
 print("=======================================================================")
