@@ -22,16 +22,13 @@ config_path = utils.get_configs_path(PROJECT_ROOT)
 with open(config_path, "r") as config_file:
     configs = yaml.safe_load(config_file)
 
-
 file_id = configs.get("file_id")
-
 
 df = misc.read_excel_from_drive(file_id)
 
 # =============================================
 # Data Preparation
 # =============================================
-
 
 df = preprocessing.clean_data(df)
 
