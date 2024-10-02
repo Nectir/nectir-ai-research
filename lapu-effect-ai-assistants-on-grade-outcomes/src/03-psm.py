@@ -12,7 +12,7 @@ PROJECT_ROOT = "lapu-effect-ai-assistants-on-grade-outcomes"
 
 utils.add_source_root_to_system_path(PROJECT_ROOT)
 
-from src import misc  # noqa: E402
+from src import misc, preprocessing, psm  # noqa: E402
 
 # Load environment variables
 dotenv_path = os.path.join(PROJECT_ROOT, ".env")
@@ -36,23 +36,23 @@ df = misc.read_excel_from_drive(file_id)
 # =============================================
 
 # Clean data
-df = misc.clean_data(df)
+df = preprocessing.clean_data(df)
 
 # Create binary did_use_spark field
-df = misc.create_did_use_spark_field(df)
+df = preprocessing.create_did_use_spark_field(df)
 
 # Select fields
 df_psm = misc.select_psm_fields(df)
 
 # Drop missing GPAs
-df_psm = misc.drop_missing_gpas(df_psm)
+df_psm = preprocessing.drop_missing_gpas(df_psm)
 
 # Drop rows with missing genders
-df_psm = misc.drop_missing_genders(df_psm)
+df_psm = preprocessing.drop_missing_genders(df_psm)
 
 # Encode categorical variables
 categorical_variables_to_encode = ["gender", "ethnicity"]
-df_psm = misc.psm_encode_categorical_variables(df_psm, categorical_variables_to_encode)
+df_psm = psm.psm_encode_categorical_variables(df_psm, categorical_variables_to_encode)
 
 # Identify the new one-hot encoded columns
 one_hot_columns = df_psm.columns.difference(
@@ -84,12 +84,12 @@ smd_before = {}
 for covariate in covariates:
     if df_psm[covariate].nunique() == 2:
         # Binary variable
-        smd = misc.psm_compute_standardized_mean_difference_binary(
+        smd = psm.psm_compute_standardized_mean_difference_binary(
             treated_pre, control_pre, covariate
         )
     else:
         # Continuous variable
-        smd = misc.psm_compute_standardized_mean_difference_continuous(
+        smd = psm.psm_compute_standardized_mean_difference_continuous(
             treated_pre, control_pre, covariate
         )
     smd_before[covariate] = smd
@@ -102,9 +102,9 @@ for covariate, smd in smd_before.items():
 # 3. Propensity Score Matching
 # =============================================
 
-course_codes = misc.psm_get_course_codes(df_psm)
-df_psm_matches, courses_without_both_control_treatment = (
-    misc.psm_get_matches_per_course(df_psm, course_codes, columns_to_match_on)
+course_codes = psm.psm_get_course_codes(df_psm)
+df_psm_matches, courses_without_both_control_treatment = psm.psm_get_matches_per_course(
+    df_psm, course_codes, columns_to_match_on
 )
 
 # =============================================
@@ -131,12 +131,12 @@ smd_after = {}
 for covariate in covariates:
     if treated_post[covariate].nunique() == 2:
         # Binary variable
-        smd = misc.psm_compute_standardized_mean_difference_binary(
+        smd = psm.psm_compute_standardized_mean_difference_binary(
             treated_post, control_post, covariate
         )
     else:
         # Continuous variable
-        smd = misc.psm_compute_standardized_mean_difference_continuous(
+        smd = psm.psm_compute_standardized_mean_difference_continuous(
             treated_post, control_post, covariate
         )
     smd_after[covariate] = smd
@@ -150,7 +150,7 @@ for covariate, smd in smd_after.items():
 # =============================================
 
 # Plot standardized mean differences (e.g., Love plot)
-misc.psm_plot_standardized_mean_differences(smd_before, smd_after)
+psm.psm_plot_standardized_mean_differences(smd_before, smd_after)
 
 # Compute the absolute age difference between matched pairs
 df_psm_matches["age_diff"] = abs(
@@ -209,12 +209,12 @@ smd_after_filtering = {}
 for covariate in covariates:
     if treated_filtered[covariate].nunique() == 2:
         # Binary variable
-        smd = misc.psm_compute_standardized_mean_difference_binary(
+        smd = psm.psm_compute_standardized_mean_difference_binary(
             treated_filtered, control_filtered, covariate
         )
     else:
         # Continuous variable
-        smd = misc.psm_compute_standardized_mean_difference_continuous(
+        smd = psm.psm_compute_standardized_mean_difference_continuous(
             treated_filtered, control_filtered, covariate
         )
     smd_after_filtering[covariate] = smd
@@ -228,7 +228,7 @@ for covariate, smd in smd_after_filtering.items():
 # =============================================
 
 # Create Love plot
-misc.psm_plot_standardized_mean_differences_all_three(
+psm.psm_plot_standardized_mean_differences_all_three(
     smd_before, smd_after, smd_after_filtering
 )
 

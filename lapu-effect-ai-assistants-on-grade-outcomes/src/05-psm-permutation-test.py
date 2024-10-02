@@ -24,7 +24,6 @@ df_psm_matches_filtered["gpa_diff"] = (
     - df_psm_matches_filtered["control_course_gpa"]
 )
 
-
 # =============================================
 # 3. Permutation Test for Paired Data
 # =============================================

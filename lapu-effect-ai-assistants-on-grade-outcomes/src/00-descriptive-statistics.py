@@ -13,7 +13,7 @@ PROJECT_ROOT = "lapu-effect-ai-assistants-on-grade-outcomes"
 
 utils.add_source_root_to_system_path(PROJECT_ROOT)
 
-from src import misc  # noqa: E402
+from src import misc, preprocessing  # noqa: E402
 
 # Load environment variables
 dotenv_path = os.path.join(PROJECT_ROOT, ".env")
@@ -37,19 +37,19 @@ df = misc.read_excel_from_drive(file_id)
 # =============================================
 
 # Clean data
-df = misc.clean_data(df)
+df = preprocessing.clean_data(df)
 
 # Create binary did_use_spark field
-df = misc.create_did_use_spark_field(df)
+df = preprocessing.create_did_use_spark_field(df)
 
 # Select fields
 df_gpas_with_usage = misc.select_gpas_and_binary_usage(df)
 
 # Drop missing GPAs
-df_gpas_with_usage = misc.drop_missing_gpas(df_gpas_with_usage)
+df_gpas_with_usage = preprocessing.drop_missing_gpas(df_gpas_with_usage)
 
 # Define control and treatment groups
-group_treatment, group_control = misc.create_treatment_and_control_groups(
+group_treatment, group_control = preprocessing.create_treatment_and_control_groups(
     df_gpas_with_usage
 )
 
