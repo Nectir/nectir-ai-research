@@ -8,6 +8,7 @@ def add_source_root_to_system_path(path):
     if source_root not in sys.path:
         sys.path.append(source_root)
 
+
 def get_configs_path(root_name, config_filename="configs.yaml"):
     """
     Constructs the path to a configs file relative to the source root.
