@@ -1,5 +1,4 @@
-.. |DOI| image:: https://zenodo.org/badge/866249692.svg
-   :target: https://doi.org/10.5281/zenodo.13883480
+[![DOI](https://zenodo.org/badge/866249692.svg)](https://doi.org/10.5281/zenodo.13883480)
 
 # An Experimental Study of the Effect of AI Course Assistants on Student Grade Outcomes
 
