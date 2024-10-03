@@ -11,8 +11,8 @@ This analysis assumes the data is stored in an Excel file in Google Drive, and a
 1. Clone the repository
 
 ```bash
-git clone https://github.com/Nectir/nectir-ai-research/lapu-effect-ai-assistants-on-grade-outcomes.git
-cd lapu-effect-ai-assistants-on-grade-outcomes
+git clone https://github.com/Nectir/nectir-ai-research.git
+cd nectir-ai-research
 ```
 
 2. Set up the environment
@@ -21,10 +21,16 @@ cd lapu-effect-ai-assistants-on-grade-outcomes
 conda create -n lapu-effect-ai-on-grades python=3.11
 conda activate lapu-effect-ai-on-grades
 pip install poetry==1.8.3
+```
+
+3. Change directories and install dependencies
+
+```bash
+cd lapu-effect-ai-assistants-on-grade-outcomes
 poetry install
 ```
 
-3. Configure the environment variables
+4. Configure the environment variables
 
 Copy `env.example` to `.env` and fill in the necessary variables.
 
@@ -32,7 +38,7 @@ Copy `env.example` to `.env` and fill in the necessary variables.
 cp env.example .env
 ```
 
-4. Configure `configs.yaml`
+5. Configure `configs.yaml`
 
 Copy `configs-template.yaml` to `configs.yaml` and add the Google Drive file ID.
 
@@ -40,13 +46,13 @@ Copy `configs-template.yaml` to `configs.yaml` and add the Google Drive file ID.
 cp configs-template.yaml configs.yaml
 ```
 
-5. Create `data` and `figures` directories
+6. Create `data` and `figures` directories
 
 ```bash
 mkdir data figures 
 ```
 
-6. Run the Python scripts in order
+7. Run the Python scripts in order
 
 These scripts are located in `lapu-effect-ai-assistants-on-grade-outcomes/src`.
 
@@ -56,6 +62,14 @@ These scripts are located in `lapu-effect-ai-assistants-on-grade-outcomes/src`.
 - `03-psm.py`: Propensity score matching procedure.
 - `04-psm-wilicoxon-signed-rank-test.py`: Wilcoxon Signed-Rank test on PSM pairs.
 - `05-psm-permutation-test.py`: Permutation test on PSM pairs.
+
+You may need to update you `PYTHONPATH`.  If so:
+
+```bash
+cd ..
+export PYTHONPATH=$(pwd)
+python lapu-effect-ai-assistants-on-grade-outcomes/src/00-descriptive-statistics.py
+```
 
 ## Contact
 
