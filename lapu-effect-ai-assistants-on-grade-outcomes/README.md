@@ -1,3 +1,6 @@
+.. image:: https://zenodo.org/badge/866249692.svg
+  :target: https://doi.org/10.5281/zenodo.13883480
+
 # An Experimental Study of the Effect of AI Course Assistants on Student Grade Outcomes
 
 This repository contains the code used in the paper *An Experimental Study of the Effect of AI Course Assistants on Student Grade Outcomes* by George Hanshaw, Ethan Wicker, and Kristen Denlinger
