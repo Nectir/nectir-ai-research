@@ -7,7 +7,7 @@ from googleapiclient.discovery import build
 from googleapiclient.http import MediaIoBaseDownload
 
 
-def read_excel_from_drive(file_id, sheet_number=1):
+def read_excel_from_drive(file_id, sheet_number=0):
     """
     Downloads an Excel file from Google Drive and returns it as a pandas DataFrame.
 
