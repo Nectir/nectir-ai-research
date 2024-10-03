@@ -54,3 +54,7 @@ These scripts are located in `lapu-effect-ai-assistants-on-grade-outcomes/src`.
 - `03-psm.py`: Propensity score matching procedure.
 - `04-psm-wilicoxon-signed-rank-test.py`: Wilcoxon Signed-Rank test on PSM pairs.
 - `05-psm-permutation-test.py`: Permutation test on PSM pairs.
+
+## Contact
+
+For questions, please open an issue or contact Ethan Wicker <ethan.wicker@nectir.io>.
